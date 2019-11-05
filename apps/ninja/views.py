@@ -68,7 +68,7 @@ def calculate_gold(request):
                         'activities'].append(f"<option style='color:green'>Earn {request.session['casino_gold']} from gambling ({datetime.now().strftime('%Y/%m/%d %H:%M %p')})</option>")
             else:
                 request.session['activities'].append(
-                    "<option style='color:red'>You have no money to enter casino ({datetime.now().strftime('%Y/%m/%d %H:%M %p')})</option>")
+                    f"<option style='color:red'>You have no money to enter casino ({datetime.now().strftime('%Y/%m/%d %H:%M %p')})</option>")
                 request.session.modified = True
         print('I am in calculate gold')
         print('farm_gold is', request.session['farm_gold'])

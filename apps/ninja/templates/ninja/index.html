@@ -75,7 +75,7 @@
 
     <p>Activities:</p>
     <select multiple size="10" style="width: 80%;">
-        {% for val in request.session.activities %}
+        {% for val in request.session.activities reversed%}
 
         {{ val | safe}}
 
