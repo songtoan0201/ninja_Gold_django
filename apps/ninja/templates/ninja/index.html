@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ninja Gold</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'first_app/css/style.css' %}">
+    <script src="{% static 'first_app/js/script.js' %}"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+    <h1>Ninja Gold</h1>
+    <h1>Your Gold: {{request.session.total_gold}}</h1>
+
+    <table>
+        <col width="300">
+        <col width="300">
+        <col width="300">
+        <col width="300">
+        <tr>
+            <td>
+                <form action="/process_money" method="post">
+                    {% csrf_token %}
+                    <h2>Farm</h2>
+                    <p>(earns 10-20 golds)</p>
+                    <input type="hidden" name="which_form" value="farm" />
+                    <input type="submit" value="Find Gold!" />
+                </form>
+            </td>
+            <td>
+                <form action="/process_money" method="post">
+                    {% csrf_token %}
+                    <h2>Cave</h2>
+                    <p>(earns 5-10 golds)</p>
+                    <input type="hidden" name="which_form" value="cave" />
+                    <input type="submit" value="Find Gold!" />
+                </form>
+            </td>
+            <td>
+                <form action="/process_money" method="post">
+                    {% csrf_token %}
+                    <h2>House</h2>
+                    <p>(earns 2-5 golds)</p>
+                    <input type="hidden" name="which_form" value="house" />
+                    <input type="submit" value="Find Gold!" />
+                </form>
+            </td>
+            <td>
+                <form action="/process_money" method="post">
+                    {% csrf_token %}
+                    <h2>Casino</h2>
+                    <p>(earns/takes 0-50 golds)</p>
+                    <input type="hidden" name="which_form" value="casino" />
+                    <input type="submit" value="Find Gold!" />
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <p>Activities:</p>
+    <select multiple size="10" style="width: 80%;">
+        {% for val in request.session.activities %}
+
+        {{ val | safe}}
+
+        {% endfor %}
+    </select>
+
+    <form action="/destroy_session">
+        <input type="submit" value="RESET">
+    </form>
+</body>
+
+</html>
